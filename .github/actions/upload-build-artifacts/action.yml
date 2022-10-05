@@ -14,5 +14,5 @@ runs:
     - name: Upload mirai-core-utils
       uses: actions/upload-artifact@v3
       with:
-        name: mirai-comprehensivePlugin
+        name: isu-plugin
         path: build/mirai
