@@ -1,6 +1,5 @@
 package top.xiaoyv404.isu.app
 
-import net.mamoe.mirai.contact.*
 import net.mamoe.mirai.event.*
 import top.xiaoyv404.isu.*
 
@@ -15,7 +14,7 @@ fun report() {
                 PluginData.memberList.forEach { (k, v) ->
                     if (!v) {
                         status = false
-                        msg.append("${k.nameCardOrNick}  ")
+                        msg.append("$k,  ")
                     }
                 }
                 group.sendMessage(
