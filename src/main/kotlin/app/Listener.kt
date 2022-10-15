@@ -2,7 +2,6 @@ package top.xiaoyv404.isu.app
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import net.mamoe.mirai.contact.*
 import net.mamoe.mirai.event.*
 import net.mamoe.mirai.event.events.*
 import top.xiaoyv404.isu.*
@@ -22,10 +21,9 @@ fun listener() {
                 group.sendMessage("获取数据超时")
                 return@case
             }
-            val groupList = mutableMapOf<String, NormalMember>()
-            group.members.forEach {
-                groupList[it.nameCard] = it
-            }
+
+            PluginData.memberList.clear()
+
             regex.findAll(dataMsg.contentToString()).forEach {
                 val name = it.groups[1]!!.value
                 val status = it.groups[2] == null
