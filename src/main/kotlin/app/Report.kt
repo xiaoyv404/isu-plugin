@@ -7,7 +7,7 @@ import top.xiaoyv404.isu.*
 fun report() {
     GlobalEventChannel.subscribeGroupMessages {
         case("^今日考勤") {
-            if (sender.id == PluginConfig.base.adminID) {
+            if (PluginConfig.base.adminID.binarySearch(sender.id) != -1) {
                 val msg = StringBuilder()
                 msg.append("今日未出勤的猫猫有：")
                 var status = true // 是否都出勤

@@ -11,5 +11,5 @@ object PluginConfig : AutoSavePluginConfig("ISeeU") {
 @Serializable
 data class BaseConfig(
     @Comment("管理员ID")
-    val adminID: Long = 0
+    val adminID: List<Long> = listOf()
 )
