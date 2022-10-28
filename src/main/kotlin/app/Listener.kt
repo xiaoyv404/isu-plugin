@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import net.mamoe.mirai.event.*
 import net.mamoe.mirai.event.events.*
 import top.xiaoyv404.isu.*
+import top.xiaoyv404.isu.PluginMain.save
 import java.text.*
 import java.util.*
 
@@ -30,6 +31,7 @@ fun listener() {
                 PluginMain.logger.info("设置$name 状态为 $status")
                 PluginData.memberList[name] = status
             }
+            PluginData.save()
         }
     }
 }
@@ -45,6 +47,7 @@ val task = object : TimerTask() {
                 PluginData.memberList.forEach { (k, _) ->
                     PluginData.memberList[k] = false
                 }
+                PluginData.save()
             }
         }
     }

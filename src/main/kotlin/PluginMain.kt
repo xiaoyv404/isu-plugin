@@ -19,6 +19,7 @@ object PluginMain : KotlinPlugin(
         report()
         listener()
         timer.schedule(task, Date(), 60000)
+        logger.info("管理员列表: ${PluginConfig.base.adminID}")
         logger.info { "监工插件已加载" }
     }
 
