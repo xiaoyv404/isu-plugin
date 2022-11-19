@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import net.mamoe.mirai.event.*
 import net.mamoe.mirai.event.events.*
 import top.xiaoyv404.isu.*
+import top.xiaoyv404.isu.PluginMain.reload
 import top.xiaoyv404.isu.PluginMain.save
 import java.text.*
 import java.util.*
@@ -32,6 +33,10 @@ fun listener() {
                 PluginData.memberList[name] = status
             }
             PluginData.save()
+        }
+        case("isu reload"){
+            PluginConfig.reload()
+            subject.sendMessage("Reload successful")
         }
     }
 }
