@@ -11,5 +11,7 @@ object PluginConfig : AutoSavePluginConfig("ISeeU") {
 @Serializable
 data class BaseConfig(
     @Comment("管理员ID")
-    val adminID: List<Long> = listOf()
+    val adminID: List<Long> = listOf(),
+    @Comment("刷新时间，格式为'00:00'")
+    val flashTime: String = "00:10"
 )

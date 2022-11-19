@@ -47,7 +47,7 @@ val task = object : TimerTask() {
         PluginMain.launch {
             val sdf = SimpleDateFormat("HH:mm")
             val time = sdf.format(Date())
-            if (time == "00:10") {
+            if (time == PluginConfig.base.flashTime) {
                 PluginMain.logger.info("清除所有考勤信息")
                 PluginData.memberList.forEach { (k, _) ->
                     PluginData.memberList[k] = false
