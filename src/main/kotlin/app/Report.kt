@@ -6,7 +6,7 @@ import top.xiaoyv404.isu.*
 
 fun report() {
     GlobalEventChannel.subscribeGroupMessages {
-        case("^今日考勤") {
+        case("~今日考勤") {
             if (PluginConfig.base.adminID.find { it == sender.id } == null)
                 return@case
 
