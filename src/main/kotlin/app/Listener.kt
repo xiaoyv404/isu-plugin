@@ -11,18 +11,16 @@ import java.text.*
 import java.util.*
 
 fun listener() {
+
+    val regex =  Regex("(.+)，出勤率.+，今日(未)?出勤 参考效益：")
+
     GlobalEventChannel.subscribeGroupMessages {
         case("~公司完整员工表") {
-            val regex = Regex("(.+)，出勤率.+，今日(未)?出勤 参考效益：")
             val dataMsg = withTimeoutOrNull(20000) {
                 GlobalEventChannel.asFlow()
                     .filterIsInstance<GroupMessageEvent>()
                     .map { it.message }.first()
-            }
-            if (dataMsg == null) {
-                group.sendMessage("获取数据超时")
-                return@case
-            }
+            } ?: return@case
 
             PluginData.memberList.clear()
 
@@ -37,6 +35,25 @@ fun listener() {
         case("isu reload"){
             PluginConfig.reload()
             subject.sendMessage("Reload successful")
+        }
+    }
+    GlobalEventChannel.subscribeOtherClientMessages{
+        case("~公司完整员工表") {
+            val dataMsg = withTimeoutOrNull(20000) {
+                GlobalEventChannel.asFlow()
+                    .filterIsInstance<GroupMessageEvent>()
+                    .map { it.message }.first()
+            } ?: return@case
+
+            PluginData.memberList.clear()
+
+            regex.findAll(dataMsg.contentToString()).forEach {
+                val name = it.groups[1]!!.value
+                val status = it.groups[2] == null
+                PluginMain.logger.info("设置$name 状态为 $status")
+                PluginData.memberList[name] = status
+            }
+            PluginData.save()
         }
     }
 }
