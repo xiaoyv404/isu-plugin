@@ -5,13 +5,13 @@ import top.xiaoyv404.isu.*
 
 
 fun report() {
-    GlobalEventChannel.subscribeGroupMessages {
+    GlobalEventChannel.subscribeUserMessages {
         case("~今日考勤") {
             if (PluginConfig.base.adminID.find { it == sender.id } == null)
                 return@case
 
             if (PluginData.memberList.isEmpty()) {
-                group.sendMessage("唔，没有数据哦")
+                subject.sendMessage("唔，没有数据哦")
                 return@case
             }
 
@@ -24,7 +24,7 @@ fun report() {
                     msg.append("$k,  ")
                 }
             }
-            group.sendMessage(
+            subject.sendMessage(
                 if (status)
                     "猫猫今日已全部出勤"
                 else
