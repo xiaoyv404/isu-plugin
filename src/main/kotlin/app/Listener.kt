@@ -38,16 +38,9 @@ fun listener() {
         }
     }
     GlobalEventChannel.subscribeOtherClientMessages{
-        case("~公司完整员工表") {
-            val dataMsg = withTimeoutOrNull(20000) {
-                GlobalEventChannel.asFlow()
-                    .filterIsInstance<GroupMessageEvent>()
-                    .map { it.message }.first()
-            } ?: return@case
-
+        finding(regex) {
             PluginData.memberList.clear()
-
-            regex.findAll(dataMsg.contentToString()).forEach {
+            regex.findAll(this.message.contentToString()).forEach {
                 val name = it.groups[1]!!.value
                 val status = it.groups[2] == null
                 PluginMain.logger.info("设置$name 状态为 $status")
