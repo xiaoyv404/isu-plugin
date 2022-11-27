@@ -37,9 +37,11 @@ fun listener() {
             subject.sendMessage("Reload successful")
         }
     }
-    GlobalEventChannel.subscribeOtherClientMessages{
+    GlobalEventChannel.subscribeFriendMessages{
         finding(regex) {
-            PluginMain.logger.info("获取到从其他客户端发出的数据")
+            if (PluginConfig.base.adminID.find { it == sender.id } == null)
+                return@finding
+
             PluginData.memberList.clear()
             regex.findAll(this.message.contentToString()).forEach {
                 val name = it.groups[1]!!.value
