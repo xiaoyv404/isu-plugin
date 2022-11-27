@@ -39,6 +39,7 @@ fun listener() {
     }
     GlobalEventChannel.subscribeOtherClientMessages{
         finding(regex) {
+            PluginMain.logger.info("获取到从其他客户端发出的数据")
             PluginData.memberList.clear()
             regex.findAll(this.message.contentToString()).forEach {
                 val name = it.groups[1]!!.value
